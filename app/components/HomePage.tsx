@@ -2,11 +2,19 @@
 
 import React, { useEffect, useRef, useState } from "react";
 
+// ✅ Extend Window interface so TypeScript recognizes gsap
+declare global {
+  interface Window {
+    gsap: any;
+    ScrollTrigger: any;
+  }
+}
+
 export default function HomePage() {
-  const textRef = useRef(null);
-  const heroSectionRef = useRef(null);
-  const sliderSectionRef = useRef(null);
-  const imageTrackRef = useRef(null);
+  const textRef = useRef<HTMLHeadingElement | null>(null);
+  const heroSectionRef = useRef<HTMLElement | null>(null);
+  const sliderSectionRef = useRef<HTMLElement | null>(null);
+  const imageTrackRef = useRef<HTMLDivElement | null>(null);
 
   const [isGsapReady, setIsGsapReady] = useState(false);
 
@@ -23,8 +31,8 @@ export default function HomePage() {
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU5g7-6qbKseKunz4huuCTEhVKOVTiGBC1pw&s", // Dog 9
     "https://images.unsplash.com/photo-1507149833265-60c372daea22", // Dog 10
   ];
-   
-  // Load GSAP dynamically
+
+  // ✅ Load GSAP dynamically
   useEffect(() => {
     const loadScript = (src: string) =>
       new Promise((resolve, reject) => {
@@ -49,7 +57,7 @@ export default function HomePage() {
       .catch(console.error);
   }, []);
 
-  // Run GSAP animations once GSAP + DOM + images are ready
+  // ✅ Run GSAP animations once GSAP + DOM + images are ready
   useEffect(() => {
     if (!isGsapReady) return;
 
@@ -63,7 +71,9 @@ export default function HomePage() {
         return;
 
       const gsap = window.gsap;
-      gsap.registerPlugin(gsap.ScrollTrigger);
+      const ScrollTrigger = window.ScrollTrigger;
+
+      gsap.registerPlugin(ScrollTrigger);
 
       // Hero text zoom animation
       gsap.to(textRef.current, {
@@ -81,16 +91,16 @@ export default function HomePage() {
       // Horizontal slider animation
       gsap.to(imageTrackRef.current, {
         x: () =>
-          -(imageTrackRef.current.scrollWidth -
-            sliderSectionRef.current.clientWidth),
+          -(imageTrackRef.current!.scrollWidth -
+            sliderSectionRef.current!.clientWidth),
         ease: "none",
         scrollTrigger: {
           trigger: sliderSectionRef.current,
           start: "top top",
           end: () =>
             "+=" +
-            (imageTrackRef.current.scrollWidth -
-              sliderSectionRef.current.clientWidth),
+            (imageTrackRef.current!.scrollWidth -
+              sliderSectionRef.current!.clientWidth),
           scrub: 2,
           pin: true,
           invalidateOnRefresh: true,
@@ -98,7 +108,7 @@ export default function HomePage() {
       });
     };
 
-    // Wait until images are loaded so scrollWidth is correct
+    // ✅ Wait until images are loaded so scrollWidth is correct
     const imgs = document.querySelectorAll("img");
     let loaded = 0;
     imgs.forEach((img) => {

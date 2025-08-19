@@ -27,7 +27,6 @@ export default function HomePage() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Using a timeout ensures the DOM is fully painted, which can help with calculations.
     const timer = setTimeout(() => {
       if (
         !textRef.current ||
@@ -51,13 +50,12 @@ export default function HomePage() {
           },
         });
 
-        // Slider Animation Logic
+        // Slider Animation
         const startSliderAnim = () => {
           const amountToScroll =
             imageTrackRef.current!.scrollWidth -
             sliderSectionRef.current!.clientWidth;
 
-          // Guard against negative scroll values if content is smaller than viewport
           if (amountToScroll <= 0) return;
 
           gsap.to(imageTrackRef.current, {
@@ -74,15 +72,12 @@ export default function HomePage() {
           });
         };
 
-        // All previous image loading logic is good, but often this simpler check is enough
-        // because ScrollTrigger's refresh handles a lot of it.
-        // We call refresh() to ensure all values are up-to-date before we create the animation.
         ScrollTrigger.refresh();
         startSliderAnim();
       });
 
       return () => ctx.revert();
-    }, 100); // A small delay of 100ms can be a robust way to ensure all content is ready.
+    }, 100);
 
     return () => clearTimeout(timer);
   }, []);
@@ -116,25 +111,24 @@ export default function HomePage() {
         ref={sliderSectionRef}
         className="h-[120vh] w-full overflow-hidden bg-black"
       >
-        {/* ✅ THE FIX IS HERE: `w-max` */}
         <div
           ref={imageTrackRef}
-          className="h-full w-max flex items-center gap-10 px-12"
+          className="h-full w-max flex items-center gap-6 px-6 md:gap-10 md:px-12"
         >
           {imageUrls.map((url, index) => (
             <div
               key={index}
-              className={`flex-shrink-0 rounded-xl overflow-hidden shadow-2xl ${
-                index % 2 === 0
-                  ? "w-[750px] h-[500px]"
-                  : "w-[400px] h-[300px]"
+              className={`flex-shrink-0 rounded-xl overflow-hidden shadow-2xl transition-transform duration-500 hover:scale-105
+              ${index % 2 === 0
+                ? "w-[250px] h-[180px] sm:w-[400px] sm:h-[280px] md:w-[600px] md:h-[400px] lg:w-[750px] lg:h-[500px]"
+                : "w-[180px] h-[120px] sm:w-[280px] sm:h-[200px] md:w-[350px] md:h-[250px] lg:w-[400px] lg:h-[300px]"
               } bg-zinc-800`}
             >
               <Image
                 src={url}
                 alt={`Dog ${index + 1}`}
-                width={index % 2 === 0 ? 750 : 400}
-                height={index % 2 === 0 ? 500 : 300}
+                width={750}
+                height={500}
                 className="w-full h-full object-cover"
                 unoptimized
               />

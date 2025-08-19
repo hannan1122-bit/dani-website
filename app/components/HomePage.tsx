@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
-// ✅ Extend Window interface so TypeScript recognizes gsap
+// ✅ Extend Window interface so TypeScript recognizes gsap properly
 declare global {
   interface Window {
-    gsap: any;
-    ScrollTrigger: any;
+    gsap: typeof import("gsap");
+    ScrollTrigger: typeof import("gsap/ScrollTrigger");
   }
 }
 
@@ -18,7 +19,7 @@ export default function HomePage() {
 
   const [isGsapReady, setIsGsapReady] = useState(false);
 
-  // ✅ Static Dog Image Links (easy to update)
+  // ✅ Static Dog Image Links
   const imageUrls = [
     "https://images.unsplash.com/photo-1518717758536-85ae29035b6d", // Dog 1
     "https://images.unsplash.com/photo-1558788353-f76d92427f16", // Dog 2
@@ -173,14 +174,13 @@ export default function HomePage() {
                   : "w-[400px] h-[300px]" // Small image
               } bg-zinc-800`}
             >
-              <img
+              <Image
                 src={url}
                 alt={`Dog ${index + 1}`}
+                width={index % 2 === 0 ? 750 : 400}
+                height={index % 2 === 0 ? 500 : 300}
                 className="w-full h-full object-cover"
-                onError={(e) =>
-                  (e.currentTarget.src =
-                    "https://placehold.co/750x500/ff0000/ffffff?text=Error")
-                }
+                unoptimized // ✅ required because these are external images
               />
             </div>
           ))}

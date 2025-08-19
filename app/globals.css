@@ -18,6 +18,22 @@
     --foreground: #ededed;
   }
 }
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-\[gradient_10s_ease_infinite\] {
+  background-size: 200% 200%;
+}
+
 
 body {
   background: var(--background);

@@ -26,10 +26,23 @@ const IntroAnimation = ({ onComplete }: { onComplete: () => void }) => {
     </svg>
   );
 
+  // ✅ Fix: explicitly cast ease as [number, number, number, number]
   const transitions = {
-    layer1: { duration: 1.8, ease: [0.6, 0.01, -0.05, 0.9], delay: 0 },
-    layer2: { duration: 1.8, ease: [0.6, 0.01, -0.05, 0.9], delay: 0.2 },
-    layer3: { duration: 1.8, ease: [0.6, 0.01, -0.05, 0.9], delay: 0.4 },
+    layer1: {
+      duration: 1.8,
+      ease: [0.6, 0.01, -0.05, 0.9] as [number, number, number, number],
+      delay: 0,
+    },
+    layer2: {
+      duration: 1.8,
+      ease: [0.6, 0.01, -0.05, 0.9] as [number, number, number, number],
+      delay: 0.2,
+    },
+    layer3: {
+      duration: 1.8,
+      ease: [0.6, 0.01, -0.05, 0.9] as [number, number, number, number],
+      delay: 0.4,
+    },
   };
 
   return (
@@ -71,11 +84,13 @@ const HomePage = () => {
       {/* --- BLUE SECTION START --- */}
       <main className="relative w-full bg-blue-600 p-8 pb-48 overflow-hidden font-sans tracking-tight">
         {/* Render the background animation */}
-        {isAnimating && <IntroAnimation onComplete={() => setIsAnimating(false)} />}
+        {isAnimating && (
+          <IntroAnimation onComplete={() => setIsAnimating(false)} />
+        )}
 
         {/* --- CONTENT WRAPPER START --- */}
         <div className="relative z-10">
-          {/* Top-right yellow text (Moved higher) */}
+          {/* Top-right yellow text */}
           <motion.div
             initial={{ x: 200, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -155,7 +170,7 @@ const HomePage = () => {
                 brands that truly resonate. We thrive on collaboration and
                 believe the best ideas emerge when diverse minds come together.
               </p>
-              <button className="mt-8 bg-yellow-400 text-blue-600 text-xl font-bold px-10 py-4 rounded-xl shadow-lg hover:bg-yellow-300 transition-all duration-300 ease-in-out transform hover-scale-105">
+              <button className="mt-8 bg-yellow-400 text-blue-600 text-xl font-bold px-10 py-4 rounded-xl shadow-lg hover:bg-yellow-300 transition-all duration-300 ease-in-out transform hover:scale-105">
                 LEARN MORE
               </button>
             </motion.div>

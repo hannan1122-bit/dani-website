@@ -82,7 +82,7 @@ const HomePage = () => {
             transition={{ duration: 1.2, ease: "easeOut" }}
             className="absolute top-0 md:top-[-60px] right-16 text-right text-yellow-400 font-extrabold italic text-5xl sm:text-6xl lg:text-7xl leading-tight"
           >
-            <p>WE DON'T</p>
+            <p>WE DON&apos;T</p>
             <p>JUST BUILD BRANDS</p>
             <p>WE MAKE THEM</p>
           </motion.div>
@@ -130,7 +130,7 @@ const HomePage = () => {
                 <p>Let us help you build an uncommon story.</p>
               </div>
               <button className="mt-8 bg-yellow-400 text-blue-600 px-10 py-4 rounded-xl shadow-lg hover:bg-yellow-300 transition-all duration-300 ease-in-out transform hover:scale-105 font-bold tracking-wide">
-                <span className="text-xl">Let's Go</span>
+                <span className="text-xl">Let&apos;s Go</span>
                 <span className="block text-2xl">UNCOMMON</span>
               </button>
             </div>
@@ -302,11 +302,11 @@ const HomePage = () => {
             COMMON?
           </h2>
           <p className="mt-8 text-2xl sm:text-3xl font-medium max-w-3xl leading-relaxed">
-            Let’s bring your boldest ideas to life and create
+            Let&apos;s bring your boldest ideas to life and create
             <br />
             digital experiences that truly set your brand apart.
             <br />
-            Together, we’ll redefine what’s possible.
+            Together, we&apos;ll redefine what&apos;s possible.
           </p>
           <div className="mt-10 bg-yellow-300 text-blue-600 text-2xl sm:text-3xl font-bold px-8 py-4 rounded-lg shadow-lg">
             hello@uncommon.future.com

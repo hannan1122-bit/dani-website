@@ -81,8 +81,8 @@ const HomePage = () => {
 
   return (
     <>
-      {/* --- BLUE SECTION START --- */}
-      <main className="relative w-full bg-blue-600 p-8 pb-48 overflow-hidden font-sans tracking-tight">
+{/* --- BLUE SECTION START --- */}
+<main className="relative w-full bg-blue-600 p-4 md:p-8 pb-48 overflow-hidden font-sans tracking-tight">
         {/* Render the background animation */}
         {isAnimating && (
           <IntroAnimation onComplete={() => setIsAnimating(false)} />
@@ -90,20 +90,22 @@ const HomePage = () => {
 
         {/* --- CONTENT WRAPPER START --- */}
         <div className="relative z-10">
-          {/* Top-right yellow text */}
+
+          {/* --- LAYOUT UPDATE START --- */}
+          {/* "WE DON'T..." text is now outside the w-2/3 container to allow it to go further right. */}
           <motion.div
             initial={{ x: 200, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            className="absolute top-0 md:top-[-60px] right-16 text-right text-yellow-400 font-extrabold italic text-5xl sm:text-6xl lg:text-7xl leading-tight"
+            className="mt-48 w-full text-right text-yellow-400 font-extrabold italic text-5xl sm:text-6xl lg:text-7xl leading-tight mb-4"
           >
             <p>WE DON&apos;T</p>
             <p>JUST BUILD BRANDS</p>
             <p>WE MAKE THEM</p>
           </motion.div>
 
-          {/* UNCOMMON Heading + Dog */}
-          <div className="mt-48 w-full md:w-2/3">
+          {/* Container for the "UNCOMMON" heading and dog image */}
+          <div className="w-full md:w-2/3">
             <motion.h1
               initial={{ opacity: 0, y: 80 }}
               animate={{ opacity: 1, y: 0 }}
@@ -128,6 +130,8 @@ const HomePage = () => {
               />
             </motion.div>
           </div>
+          {/* --- LAYOUT UPDATE END --- */}
+
 
           {/* Text + Button */}
           <motion.div
@@ -158,7 +162,7 @@ const HomePage = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1 }}
-              className="w-full md:w-1/2 md:pl-8 md:translate-y-36"
+              className="w-full md:w-1/2 md:pl-8 lg:translate-y-36"
             >
               <h2 className="text-7xl font-extrabold text-yellow-400 mb-4 text-center font-serif">
                 WHO WE ARE
@@ -214,7 +218,7 @@ const HomePage = () => {
         {/* --- CONTENT WRAPPER END --- */}
       </main>
       {/* --- BLUE SECTION END --- */}
-
+      
       {/* --- YELLOW SECTION START --- */}
       <section className="w-full bg-yellow-300 text-blue-600 font-sans">
         <div className="py-32 px-8 sm:px-16 md:px-24 lg:px-32">

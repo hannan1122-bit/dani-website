@@ -21,10 +21,10 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
   ];
 
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
+    <nav className="bg-blue-600 shadow-md top-0 z-50">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         {/* Logo */}
-        <h1 className="text-xl font-bold text-blue-600">MySite</h1>
+        <h1 className="text-xl font-bold text-yellow-400">MySite</h1>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex space-x-6">
@@ -34,8 +34,8 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
                 onClick={() => setActivePage(link.id)}
                 className={`${
                   activePage === link.id
-                    ? "text-blue-600 border-b-2 border-blue-600"
-                    : "text-gray-700 hover:text-blue-600"
+                    ? "text-yellow-400 underline underline-offset-4"
+                    : "text-yellow-300 hover:text-yellow-400 hover:underline underline-offset-4"
                 } font-medium transition-colors`}
               >
                 {link.label}
@@ -46,7 +46,7 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-gray-700 focus:outline-none"
+          className="md:hidden text-yellow-300 focus:outline-none"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -55,7 +55,7 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
 
       {/* Mobile Dropdown */}
       {isOpen && (
-        <div className="md:hidden bg-white shadow-md">
+        <div className="md:hidden bg-blue-600 shadow-md">
           <ul className="flex flex-col space-y-4 p-4">
             {links.map((link) => (
               <li key={link.id}>
@@ -66,8 +66,8 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
                   }}
                   className={`block w-full text-left ${
                     activePage === link.id
-                      ? "text-blue-600 font-semibold"
-                      : "text-gray-700 hover:text-blue-600"
+                      ? "text-yellow-400 font-semibold underline underline-offset-4"
+                      : "text-yellow-300 hover:text-yellow-400 hover:underline underline-offset-4"
                   } transition-colors`}
                 >
                   {link.label}

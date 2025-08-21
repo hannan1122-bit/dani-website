@@ -57,3 +57,10 @@ body {
 .animate-slideInFromRight {
   animation: slideInFromRight 1s ease-out forwards;
 }
+@font-face {
+  font-family: "TakiTaki";
+  src: url("/Fonts/Uncommon Wording font/TakiTaki.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+

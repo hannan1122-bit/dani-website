@@ -5,8 +5,22 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import localFont from "next/font/local";
 
-// Dynamically import the 3D model component
+// ✅ Custom Fonts
+const takiTaki = localFont({
+  src: "../../public/Fonts/Uncommon Wording font/TakiTaki.otf",
+  weight: "500",
+  style: "normal",
+});
+
+const orbitron = localFont({
+  src: "../../public/Fonts/Font For Other/Orbitron-Medium.ttf",
+  weight: "500",
+  style: "normal",
+});
+
+// ✅ Dynamically import the 3D model component
 const RotatingModel = dynamic(() => import("./RotatingModel"), {
   ssr: false,
   loading: () => (
@@ -26,7 +40,6 @@ const IntroAnimation = ({ onComplete }: { onComplete: () => void }) => {
     </svg>
   );
 
-  // ✅ Fix: explicitly cast ease as [number, number, number, number]
   const transitions = {
     layer1: {
       duration: 1.8,
@@ -53,16 +66,18 @@ const IntroAnimation = ({ onComplete }: { onComplete: () => void }) => {
         animate={{ x: "200%" }}
         transition={transitions.layer1}
       >
-        <Shape color="#FBBF24" /> {/* yellow-400 */}
+        <Shape color="#FBBF24" />
       </motion.div>
+
       <motion.div
         className="absolute top-0 left-0 w-1/2 h-full"
         initial={{ x: "-100%" }}
         animate={{ x: "200%" }}
         transition={transitions.layer2}
       >
-        <Shape color="#EC4899" /> {/* pink-500 */}
+        <Shape color="#EC4899" />
       </motion.div>
+
       <motion.div
         className="absolute top-0 left-0 w-1/2 h-full"
         initial={{ x: "-100%" }}
@@ -70,7 +85,7 @@ const IntroAnimation = ({ onComplete }: { onComplete: () => void }) => {
         transition={transitions.layer3}
         onAnimationComplete={onComplete}
       >
-        <Shape color="#60A5FA" /> {/* blue-400 */}
+        <Shape color="#60A5FA" />
       </motion.div>
     </div>
   );
@@ -80,60 +95,58 @@ const HomePage = () => {
   const [isAnimating, setIsAnimating] = useState(true);
 
   return (
-    <>
-{/* --- BLUE SECTION START --- */}
-<main className="relative w-full bg-blue-600 p-4 md:p-8 pb-48 overflow-hidden font-sans tracking-tight">
-        {/* Render the background animation */}
+    <div className={orbitron.className}>
+      {/* --- BLUE SECTION START --- */}
+      <main className="relative w-full bg-blue-600 p-4 md:p-8 pb-48 overflow-hidden tracking-tight">
         {isAnimating && (
           <IntroAnimation onComplete={() => setIsAnimating(false)} />
         )}
 
-        {/* --- CONTENT WRAPPER START --- */}
         <div className="relative z-10">
-
-          {/* --- LAYOUT UPDATE START --- */}
-          {/* "WE DON'T..." text is now outside the w-2/3 container to allow it to go further right. */}
+          {/* Right aligned intro text */}
           <motion.div
             initial={{ x: 200, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            className="mt-48 w-full text-right text-yellow-400 font-extrabold italic text-5xl sm:text-6xl lg:text-7xl leading-tight mb-4"
+            className="mt-8 w-full text-right text-yellow-400 font-extrabold italic text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-snug md:leading-tight mb-4"
           >
             <p>WE DON&apos;T</p>
             <p>JUST BUILD BRANDS</p>
             <p>WE MAKE THEM</p>
           </motion.div>
 
-          {/* Container for the "UNCOMMON" heading and dog image */}
-          <div className="w-full md:w-2/3">
+          {/* Container for heading + dog */}
+          <div className="w-full md:w-2/3 flex flex-col items-center px-4 sm:px-8 md:px-0 lg:-mt-16 sm:-mt-12 md:-mt-10">
+            {/* Title with TakiTaki font */}
             <motion.h1
               initial={{ opacity: 0, y: 80 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.3, delay: 0.3 }}
-              className="text-black text-7xl sm:text-8xl lg:text-9xl xl:text-[12rem] font-extrabold font-serif leading-none break-words"
+              className={`${takiTaki.className} text-black text-6xl sm:text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] 2xl:text-[15rem] font-extrabold leading-tight md:leading-none break-words text-center`}
             >
               UNCOMMON
             </motion.h1>
 
+            {/* Dog image */}
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 1.2, delay: 0.6 }}
-              className="mt-4 w-full"
+              initial={{ scale: 0.85, opacity: 0, y: 60 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, delay: 0.6, ease: "easeOut" }}
+              className="w-full flex justify-center mt-4 sm:mt-6 md:mt-8"
             >
               <Image
                 src="/PICTURES/cute-and-happy-dog-png.webp"
                 alt="A cute and happy dog sticker"
                 width={800}
                 height={600}
-                className="w-full h-auto"
+                priority
+                className="w-full h-auto max-w-[300px] sm:max-w-[500px] md:max-w-[650px] lg:max-w-[900px] xl:max-w-[1100px]"
               />
             </motion.div>
           </div>
-          {/* --- LAYOUT UPDATE END --- */}
 
 
-          {/* Text + Button */}
+          {/* Text + CTA */}
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -142,12 +155,13 @@ const HomePage = () => {
             className="mt-16 flex justify-center"
           >
             <div className="flex flex-col items-start">
-              <div className="text-yellow-400 font-semibold text-4xl text-left leading-snug tracking-wide">
+              <div className="text-yellow-400 font-semibold text-2xl sm:text-3xl md:text-4xl text-left leading-snug tracking-wide">
                 <p>We believe in crafting more than just visuals.</p>
                 <p>Our passion lies in creating meaningful connections</p>
                 <p>between brands and their audience.</p>
                 <p>Let us help you build an uncommon story.</p>
               </div>
+
               <button className="mt-8 bg-yellow-400 text-blue-600 px-10 py-4 rounded-xl shadow-lg hover:bg-yellow-300 transition-all duration-300 ease-in-out transform hover:scale-105 font-bold tracking-wide">
                 <span className="text-xl">Let&apos;s Go</span>
                 <span className="block text-2xl">UNCOMMON</span>
@@ -155,7 +169,7 @@ const HomePage = () => {
             </div>
           </motion.div>
 
-          {/* Who We Are Section */}
+          {/* WHO WE ARE Section */}
           <div className="mt-24 flex flex-wrap justify-between items-start w-full">
             <motion.div
               initial={{ opacity: 0, x: -60 }}
@@ -164,10 +178,10 @@ const HomePage = () => {
               transition={{ duration: 1 }}
               className="w-full md:w-1/2 md:pl-8 lg:translate-y-36"
             >
-              <h2 className="text-7xl font-extrabold text-yellow-400 mb-4 text-center font-serif">
+              <h2 className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-yellow-400 mb-4 text-center font-serif">
                 WHO WE ARE
               </h2>
-              <p className="mt-6 text-3xl text-yellow-400 leading-relaxed text-left font-light italic">
+              <p className="mt-6 text-xl sm:text-2xl md:text-3xl text-yellow-400 leading-relaxed text-left font-light italic">
                 We are a collective of creators, strategists, and innovators
                 driven by a shared passion for the unconventional. Our journey
                 began with a simple idea: to challenge the status quo and build
@@ -215,15 +229,16 @@ const HomePage = () => {
             </div>
           </motion.div>
         </div>
-        {/* --- CONTENT WRAPPER END --- */}
       </main>
       {/* --- BLUE SECTION END --- */}
-      
+
       {/* --- YELLOW SECTION START --- */}
-      <section className="w-full bg-yellow-300 text-blue-600 font-sans">
+      <section className="w-full bg-yellow-300 text-blue-600">
         <div className="py-32 px-8 sm:px-16 md:px-24 lg:px-32">
-          <h2 className="text-7xl font-extrabold">WHAT WE DO</h2>
-          <div className="mt-6 text-4xl font-semibold">
+          <h2 className="text-5xl sm:text-6xl md:text-7xl font-extrabold">
+            WHAT WE DO
+          </h2>
+          <div className="mt-6 text-2xl sm:text-3xl md:text-4xl font-semibold">
             <p>We build unforgettable brand identities.</p>
             <p>We create experiences that inspire action.</p>
           </div>
@@ -241,17 +256,14 @@ const HomePage = () => {
 
           {/* Optional Add-ons Section */}
           <div className="mt-32 flex flex-col items-center text-center">
-            <h2 className="text-blue-600 text-7xl font-extrabold leading-tight font-serif">
-              OPTIONAL
-              <br />ADD-ONS
+            <h2 className="text-blue-600 text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight font-serif">
+              OPTIONAL <br /> ADD-ONS
             </h2>
-            <p className="mt-6 text-3xl text-blue-600 max-w-3xl leading-relaxed tracking-wide">
+            <p className="mt-6 text-xl sm:text-2xl md:text-3xl text-blue-600 max-w-3xl leading-relaxed tracking-wide">
               Enhance your website with premium features and extra design
-              layers.
-              <br />
-              Get tailored solutions that go beyond the basics.
+              layers. <br /> Get tailored solutions that go beyond the basics.
             </p>
-            <button className="mt-10 bg-blue-600 text-yellow-300 text-2xl font-bold px-12 py-5 rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-300 ease-in-out transform hover:scale-105">
+            <button className="mt-10 bg-blue-600 text-yellow-300 text-xl sm:text-2xl font-bold px-12 py-5 rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-300 ease-in-out transform hover:scale-105">
               LEARN MORE
             </button>
           </div>
@@ -260,9 +272,9 @@ const HomePage = () => {
       {/* --- YELLOW SECTION END --- */}
 
       {/* --- PINK SECTION START --- */}
-      <section className="w-full bg-pink-500 text-yellow-300 font-sans">
+      <section className="w-full bg-pink-500 text-yellow-300">
         <div className="pt-48 px-8 sm:px-16 md:px-24 lg:px-32 flex flex-wrap justify-between items-start">
-          {/* Left Side - Text */}
+          {/* Left Side */}
           <motion.div
             initial={{ opacity: 0, x: -80 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -270,22 +282,19 @@ const HomePage = () => {
             transition={{ duration: 1 }}
             className="max-w-xl text-left mx-auto md:mx-0 md:ml-32"
           >
-            <h2 className="text-7xl sm:text-8xl font-extrabold leading-tight font-serif">
-              WHO WE
-              <br />
-              WORK WITH
+            <h2 className="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight font-serif">
+              WHO WE <br /> WORK WITH
             </h2>
-            <p className="mt-6 text-3xl font-medium leading-relaxed">
-              We collaborate with brands, startups, and innovators
-              <br />
-              to craft experiences that stand out and inspire action.
+            <p className="mt-6 text-xl sm:text-2xl md:text-3xl font-medium leading-relaxed">
+              We collaborate with brands, startups, and innovators <br /> to
+              craft experiences that stand out and inspire action.
             </p>
-            <button className="mt-10 bg-blue-600 text-yellow-300 text-2xl font-bold px-12 py-5 rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-300 ease-in-out transform hover:scale-105">
+            <button className="mt-10 bg-blue-600 text-yellow-300 text-xl sm:text-2xl font-bold px-12 py-5 rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-300 ease-in-out transform hover:scale-105">
               KNOW MORE
             </button>
           </motion.div>
 
-          {/* Right Side - Larger Image */}
+          {/* Right Side */}
           <motion.div
             initial={{ opacity: 0, x: 80 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -311,30 +320,22 @@ const HomePage = () => {
           transition={{ duration: 1.2 }}
           className="mt-40 flex flex-col items-center text-center px-6"
         >
-          <h2 className="text-yellow-300 text-7xl sm:text-8xl font-extrabold font-serif leading-tight">
-            READY
-            <br />
-            TO
-            <br />
-            GO UN
-            <br />
-            COMMON?
+          <h2 className="text-yellow-300 text-5xl sm:text-6xl md:text-7xl font-extrabold font-serif leading-tight">
+            READY <br /> TO <br /> GO UN <br /> COMMON?
           </h2>
-          <p className="mt-8 text-2xl sm:text-3xl font-medium max-w-3xl leading-relaxed">
-            Let&apos;s bring your boldest ideas to life and create
-            <br />
-            digital experiences that truly set your brand apart.
-            <br />
-            Together, we&apos;ll redefine what&apos;s possible.
+          <p className="mt-8 text-lg sm:text-2xl md:text-3xl font-medium max-w-3xl leading-relaxed">
+            Let&apos;s bring your boldest ideas to life and create <br /> digital
+            experiences that truly set your brand apart. <br /> Together,
+            we&apos;ll redefine what&apos;s possible.
           </p>
-          <div className="mt-10 bg-yellow-300 text-blue-600 text-2xl sm:text-3xl font-bold px-8 py-4 rounded-lg shadow-lg">
+          <div className="mt-10 bg-yellow-300 text-blue-600 text-xl sm:text-2xl md:text-3xl font-bold px-8 py-4 rounded-lg shadow-lg">
             hello@uncommon.future.com
           </div>
         </motion.div>
 
-        {/* Footer Inside Pink Section */}
+        {/* Footer */}
         <div className="mt-48 pb-20 flex justify-center">
-          <h2 className="text-yellow-300 text-6xl sm:text-7xl font-extrabold font-serif">
+          <h2 className="text-yellow-300 text-4xl sm:text-5xl md:text-6xl font-extrabold font-serif">
             UNCOMMON
           </h2>
         </div>
@@ -346,23 +347,22 @@ const HomePage = () => {
         className="w-full bg-yellow-300 flex flex-col justify-between"
         style={{ minHeight: "50vh" }}
       >
-        {/* Top Text */}
         <div className="pt-12 text-center">
-          <p className="text-blue text-xl font-medium">
+          <p className="text-blue text-lg sm:text-xl font-medium">
             Dubai | Kochi | Portugal | Sweden
           </p>
-          <p className="text-blue text-lg mt-1">25.2048° N, 55.2708° E</p>
+          <p className="text-blue text-sm sm:text-lg mt-1">
+            25.2048° N, 55.2708° E
+          </p>
         </div>
-
-        {/* Bottom Text */}
         <div className="pb-8 text-center">
-          <p className="text-black text-lg font-semibold">
+          <p className="text-black text-sm sm:text-lg font-semibold">
             uncommon-future © 2025 — All Rights Disrupted
           </p>
         </div>
       </section>
       {/* --- YELLOW EMPTY SECTION END --- */}
-    </>
+    </div>
   );
 };
 

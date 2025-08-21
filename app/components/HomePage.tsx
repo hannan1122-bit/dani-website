@@ -132,7 +132,7 @@ const HomePage = () => {
               initial={{ scale: 0.85, opacity: 0, y: 60 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.6, ease: "easeOut" }}
-              className="w-full flex justify-center mt-4 sm:mt-6 md:mt-8"
+              className="w-full flex justify-center lg:-mt-12 sm:-mt-8"
             >
               <Image
                 src="/PICTURES/cute-and-happy-dog-png.webp"

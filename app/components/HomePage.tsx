@@ -3,7 +3,6 @@
 
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { useState } from "react";
 import localFont from "next/font/local";
 
 // ✅ Custom Fonts
@@ -28,8 +27,6 @@ const RotatingModel = dynamic(() => import("./RotatingModel"), {
 });
 
 const HomePage = () => {
-  const [isAnimating, setIsAnimating] = useState(false); // animations removed
-
   return (
     <div className={orbitron.className}>
       {/* --- BLUE SECTION START --- */}
@@ -175,23 +172,21 @@ const HomePage = () => {
             <span className="bg-red-600 px-3 py-2">MORE</span>
           </button>
 
-          {/* Model with Left/Right Blue Boxes */}
-          // ✅ Usage in your file
-<div className="mt-24 flex justify-center relative">
-  {/* Left Blue Box */}
-  <div className="hidden md:block absolute h-140 left-0 top-0 bottom-0 bg-blue-600 w-150 mt-250 -ml-40 z-0"></div>
+          {/* ✅ Model with Left/Right Blue Boxes */}
+          <div className="mt-24 flex justify-center relative">
+            {/* Left Blue Box */}
+            <div className="hidden md:block absolute h-140 left-0 top-0 bottom-0 bg-blue-600 w-150 mt-250 -ml-40 z-0"></div>
 
-  {/* 3D Model Canvas */}
-  <div className="relative w-full max-w-[900px] flex justify-center z-10 px-4">
-    <div className="w-full h-[60vh] sm:h-[500px] md:h-[650px] lg:h-[750px]">
-      <RotatingModel />
-    </div>
-  </div>
+            {/* 3D Model Canvas */}
+            <div className="relative w-full max-w-[900px] flex justify-center z-10 px-4">
+              <div className="w-full h-[60vh] sm:h-[500px] md:h-[650px] lg:h-[750px]">
+                <RotatingModel />
+              </div>
+            </div>
 
-  {/* Right Blue Box */}
-  <div className="hidden md:block absolute h-140 right-0 top-0 bottom-0 bg-blue-600 w-150 -mt-10 -mr-40 z-0"></div>
-</div>
-
+            {/* Right Blue Box */}
+            <div className="hidden md:block absolute h-140 right-0 top-0 bottom-0 bg-blue-600 w-150 -mt-10 -mr-40 z-0"></div>
+          </div>
 
           {/* Optional Add-ons Section */}
           <div className="mt-32 flex flex-col items-center text-center">

@@ -1,54 +1,42 @@
 // src/app/RotatingModel.tsx
 "use client";
 
-import { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, TorusKnot } from '@react-three/drei';
-import { Mesh } from 'three';
+import { Canvas, useFrame } from "@react-three/fiber";
+import { OrbitControls, useGLTF } from "@react-three/drei";
+import { Suspense, useRef } from "react";
+import * as THREE from "three";
 
-const RotatingTorusKnot = () => {
-  const meshRef = useRef<Mesh>(null!);
+function Model() {
+  const { scene } = useGLTF("/PICTURES/MODEL.glb");
+  const modelRef = useRef<THREE.Object3D>(null!);
 
-  useFrame((_state, delta) => {
-    meshRef.current.rotation.x += delta * 0.6;
-    meshRef.current.rotation.y += delta * 1.0;
+  useFrame(() => {
+    if (modelRef.current) {
+      modelRef.current.rotation.y += 0.01; // ✅ faster rotation
+    }
   });
 
+  return <primitive ref={modelRef} object={scene} scale={0.1} />;
+}
+
+useGLTF.preload("/PICTURES/MODEL.glb");
+
+export default function RotatingModel() {
   return (
-    <TorusKnot ref={meshRef} args={[2, 0.6, 300, 64]} scale={1.2} castShadow receiveShadow>
-      <meshStandardMaterial
-        color="#0077ff"     // bright blue
-        metalness={0.9}     // shiny metallic
-        roughness={0.2}     // smooth reflections
-      />
-    </TorusKnot>
-  );
-};
+    <Canvas
+      camera={{ position: [0, 0.4, 1.1], fov: 60, near: 0.1, far: 1000 }}
+      style={{ height: "100%", width: "100%" }}
+    >
+      {/* ✅ Lights */}
+      <ambientLight color="#4040ff" intensity={0.6} />
+      <directionalLight color="lightblue" position={[5, 5, 10]} intensity={1.2} />
+      <hemisphereLight color="blue" groundColor="#000020" intensity={0.8} />
 
-const RotatingModel = () => {
-  return (
-    <Canvas className="w-full h-full" shadows camera={{ position: [0, 0, 11], fov: 50 }}>
-      {/* Ambient & main directional light */}
-      <ambientLight intensity={0.8} />
-      <directionalLight position={[5, 5, 5]} intensity={1.2} castShadow />
+      <Suspense fallback={null}>
+        <Model />
+      </Suspense>
 
-      {/* Supporting white light */}
-      <pointLight position={[-5, -5, -5]} intensity={0.6} />
-
-      {/* Stronger bluish glow */}
-      <pointLight 
-        position={[0, -4, 0]} 
-        intensity={2.5}   // 🔥 slightly stronger glow
-        distance={22} 
-        color="#1e40af"   // deep bluish glow
-        castShadow
-      />
-
-      <RotatingTorusKnot />
-
-      <OrbitControls enableZoom={false} enablePan={false} />
+      <OrbitControls enableZoom={false} enablePan={false} target={[0, 0, 0]} />
     </Canvas>
   );
-};
-
-export default RotatingModel;
+}

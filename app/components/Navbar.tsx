@@ -1,14 +1,20 @@
-"use client";
+"use client"; // 1. Add "use client" for hooks
 
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import localFont from "next/font/local";
 
-// ✅ Import custom font
 const orbitron = localFont({
   src: "../../public/Fonts/Font For Other/Orbitron-Medium.ttf",
   variable: "--font-orbitron",
 });
+
+// 2. Define the types for the component's props
+interface NavbarProps {
+  activePage: string;
+  setActivePage: (page: string) => void;
+}
+
 export default function Navbar({ activePage, setActivePage }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -22,6 +28,7 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
   ];
 
   return (
+    // 3. Fix className syntax with backticks ``
     <nav className={`${orbitron.className} bg-blue-600 shadow-md top-0 z-50`}>
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         {/* Logo */}
@@ -33,6 +40,7 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
             <li key={link.id}>
               <button
                 onClick={() => setActivePage(link.id)}
+                 // 3. Fix className syntax with backticks ``
                 className={`${
                   activePage === link.id
                     ? "text-yellow-400 underline underline-offset-4"
@@ -65,6 +73,7 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
                     setActivePage(link.id);
                     setIsOpen(false);
                   }}
+                  // 3. Fix className syntax with backticks ``
                   className={`block w-full text-left ${
                     activePage === link.id
                       ? "text-yellow-400 font-semibold underline underline-offset-4"

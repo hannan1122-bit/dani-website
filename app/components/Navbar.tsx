@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X } from "lucide-react"; // hamburger & close icons
+import { Menu, X } from "lucide-react";
+import localFont from "next/font/local";
 
-interface NavbarProps {
-  activePage: string;
-  setActivePage: (page: string) => void;
-}
-
+// ✅ Import custom font
+const orbitron = localFont({
+  src: "../../public/Fonts/Font For Other/Orbitron-Medium.ttf",
+  variable: "--font-orbitron",
+});
 export default function Navbar({ activePage, setActivePage }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -21,10 +22,10 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
   ];
 
   return (
-    <nav className="bg-blue-600 shadow-md top-0 z-50">
+    <nav className={`${orbitron.className} bg-blue-600 shadow-md top-0 z-50`}>
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         {/* Logo */}
-        <h1 className="text-xl font-bold text-yellow-400">MySite</h1>
+        <h1 className="text-xl font-bold text-yellow-400">UNCOMMON</h1>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex space-x-6">
@@ -62,7 +63,7 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
                 <button
                   onClick={() => {
                     setActivePage(link.id);
-                    setIsOpen(false); // close menu after click
+                    setIsOpen(false);
                   }}
                   className={`block w-full text-left ${
                     activePage === link.id

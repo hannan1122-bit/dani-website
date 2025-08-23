@@ -176,20 +176,22 @@ const HomePage = () => {
           </button>
 
           {/* Model with Left/Right Blue Boxes */}
-          <div className="mt-24 flex justify-center relative h-[600px]">
-            {/* Left Blue Box */}
-            <div className="hidden md:block absolute h-140 left-0 top-0 bottom-0 bg-blue-600 w-150 mt-250 -ml-40 z-0"></div>
+          // ✅ Usage in your file
+<div className="mt-24 flex justify-center relative">
+  {/* Left Blue Box */}
+  <div className="hidden md:block absolute h-140 left-0 top-0 bottom-0 bg-blue-600 w-150 mt-250 -ml-40 z-0"></div>
 
-            {/* 3D Model Canvas */}
-            <div className="relative w-full  h-[1000px] max-w-[900px] aspect-square flex justify-center z-10">
-              <div className="w-full h-[750px] mt-30">
-                <RotatingModel />
-              </div>
-            </div>
+  {/* 3D Model Canvas */}
+  <div className="relative w-full max-w-[900px] flex justify-center z-10 px-4">
+    <div className="w-full h-[60vh] sm:h-[500px] md:h-[650px] lg:h-[750px]">
+      <RotatingModel />
+    </div>
+  </div>
 
-            {/* Right Blue Box */}
-            <div className="hidden md:block absolute h-140 right-0 top-0 bottom-0 bg-blue-600 w-150 -mt-10 -mr-40 z-0"></div>
-          </div>
+  {/* Right Blue Box */}
+  <div className="hidden md:block absolute h-140 right-0 top-0 bottom-0 bg-blue-600 w-150 -mt-10 -mr-40 z-0"></div>
+</div>
+
 
           {/* Optional Add-ons Section */}
           <div className="mt-32 flex flex-col items-center text-center">

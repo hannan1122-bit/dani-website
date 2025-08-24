@@ -231,7 +231,7 @@ const HomePage = () => {
               alt="Headphones"
               width={650}
               height={650}
-              className="rounded-lg shadow-xl object-contain"
+              className="rounded-lg object-contain"
             />
           </div>
         </div>
@@ -245,7 +245,7 @@ const HomePage = () => {
               alt="Uncommon Creative"
               width={600}
               height={600}
-              className="rounded-lg shadow-2xl object-contain"
+              className="rounded-lg object-contain"
             />
           </div>
 

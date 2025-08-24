@@ -24,7 +24,7 @@ useGLTF.preload("/PICTURES/MODEL.glb");
 export default function RotatingModel() {
   return (
     <Canvas
-      camera={{ position: [0, 0.4, 1.1], fov: 60, near: 0.1, far: 1000 }}
+      camera={{ position: [0.8, 0.4, 1.1], fov: 60, near: 0.1, far: 1000 }}
       style={{ height: "100%", width: "100%" }}
     >
       {/* ✅ Lights */}
@@ -35,8 +35,6 @@ export default function RotatingModel() {
       <Suspense fallback={null}>
         <Model />
       </Suspense>
-
-      <OrbitControls enableZoom={false} enablePan={false} target={[0, 0, 0]} />
     </Canvas>
   );
 }

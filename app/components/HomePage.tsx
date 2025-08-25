@@ -4,6 +4,7 @@
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import localFont from "next/font/local";
+import { motion, easeInOut } from "framer-motion"; // ✅ import easing properly
 
 // ✅ Custom Fonts
 const takiTaki = localFont({
@@ -26,7 +27,48 @@ const RotatingModel = dynamic(() => import("./RotatingModel"), {
   ),
 });
 
+// ✅ Rotation swing animation factory
+const shakeAnimation = (delay: number, angle: number) => ({
+  initial: { rotate: 0 },
+  animate: {
+    rotate: [0, -angle, angle, -angle * 0.7, angle * 0.7, 0],
+    transition: {
+      duration: 2,
+      repeat: Infinity,
+      delay,
+      ease: easeInOut, // ✅ correct easing
+    },
+  },
+});
+
+// ✅ Pulse animations
+const pulseFromTop = {
+  initial: { scaleY: 1 },
+  animate: {
+    scaleY: [1, 1.2, 1],
+    transition: { duration: 3, repeat: Infinity, ease: easeInOut },
+  },
+};
+
+const pulseFromTop2 = {
+  initial: { scaleY: 1 },
+  animate: {
+    scaleY: [1, 1.295, 1],
+    transition: { duration: 3, repeat: Infinity, ease: easeInOut },
+  },
+};
+
+const pulseFromBottom = {
+  initial: { scaleY: 1 },
+  animate: {
+    scaleY: [1, 1.25, 1],
+    transition: { duration: 3, repeat: Infinity, ease: easeInOut },
+  },
+};
+
 const HomePage = () => {
+  const text = "UNCOMMON".split("");
+
   return (
     <div className={orbitron.className}>
       {/* --- BLUE SECTION START --- */}
@@ -40,36 +82,74 @@ const HomePage = () => {
           </div>
 
           {/* Flex row: UNCOMMON + dog on left, side image on right */}
-          <div className="mt-12 flex flex-col lg:flex-row items-center justify-between gap-12">
+          <div className="mt-15 flex flex-col lg:flex-row items-center justify-between gap-12">
             {/* LEFT: Heading + dog with yellow bg boxes */}
-            <div className="relative w-full lg:w-2/3 flex flex-col items-center pl-4 sm:px-8 md:px-0 lg:-mt-16 sm:-mt-12 md:-mt-10">
+            <div className="relative w-full lg:w-2/3 flex flex-col items-center pl-4 sm:px-8 md:px-0 lg:-mt-110 sm:-mt-20 md:-mt-30">
               {/* Yellow background boxes */}
               <div className="absolute -z-10 top-10 left-0 right-0 flex justify-center">
-                <div className="hidden md:block w-24 h-34 md:w-50 md:h-260 -mt-40 md:-mt-60 bg-yellow-300"></div>
-                <div className="hidden md:block w-16 h-16 md:w-68 md:h-180 md:mt-20 bg-yellow-300"></div>
-                <div className="hidden md:block w-24 h-34 md:w-80 md:h-260 -mt-15 md:-mt-60 bg-yellow-300"></div>
-                <div className="hidden md:block w-20 h-20 md:w-30 md:h-130 md:-mt-60 bg-yellow-300"></div>
-                <div className="hidden md:block w-20 h-20 md:w-30 md:h-90 md:-mt-20 bg-yellow-300"></div>
-                <div className="hidden md:block w-20 h-20 md:w-30 md:h-220 md:-mt-20 bg-yellow-300"></div>
+                <div className="hidden md:block w-24 h-34 md:w-50 md:h-210 -mt-40 md:-mt-60 bg-yellow-300"></div>
+
+                {/* ✅ Box 2  */}
+                <motion.div
+                  className="hidden md:block w-16 h-16 md:w-68 md:h-130 md:mt-20 bg-yellow-300"
+                  variants={pulseFromBottom}
+                  initial="initial"
+                  animate="animate"
+                  style={{ originY: 1 }}
+                />
+
+                <div className="hidden md:block w-24 h-34 md:w-80 md:h-210 -mt-15 md:-mt-60 bg-yellow-300"></div>
+
+                {/* ✅ Box 4  */}
+                <motion.div
+                  className="hidden md:block w-20 h-20 md:w-30 md:h-130 md:-mt-60 bg-yellow-300"
+                  variants={pulseFromTop}
+                  initial="initial"
+                  animate="animate"
+                  style={{ originY: 0 }}
+                />
+
+                {/* ✅ Box 5  */}
+                <motion.div
+                  className="hidden md:block w-20 h-20 md:w-30 md:h-90 md:-mt-20 bg-yellow-300"
+                  variants={pulseFromTop2}
+                  initial="initial"
+                  animate="animate"
+                  style={{ originY: 0 }}
+                />
+
+                <div className="hidden md:block w-20 h-20 md:w-30 md:h-170 md:-mt-20 bg-yellow-300"></div>
               </div>
 
-              {/* Title with TakiTaki font */}
+              {/* Title with entrance + swing */}
               <h1
-                className={`${takiTaki.className} relative z-10 text-black text-6xl sm:text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] 2xl:text-[15rem] font-extrabold leading-tight md:leading-none break-words text-center`}
+                className={`${takiTaki.className} lg:ml-5 md:ml-30 relative z-10 text-black text-6xl sm:text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] 2xl:text-[15rem] font-extrabold leading-tight md:leading-none break-words text-center flex justify-center`}
               >
-                UNCOMMON
+                {text.map((char, i) => (
+                  <motion.span
+                    key={i}
+                    initial={{
+                      x: i < text.length / 2 ? "-100%" : "100%",
+                      opacity: 0,
+                    }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{
+                      duration: 1,
+                      ease: easeInOut,
+                      delay: i * 0.05,
+                    }}
+                    className="inline-block"
+                    variants={shakeAnimation(i * 0.3, 5 + (i % 3) * 2)}
+                    whileInView="animate"
+                  >
+                    {char}
+                  </motion.span>
+                ))}
               </h1>
 
               {/* Dog image */}
               <div className="w-full flex justify-center lg:-mt-24 sm:-mt-8 relative z-20">
-                <Image
-                  src="/PICTURES/cute-and-happy-dog-png.webp"
-                  alt="A cute and happy dog sticker"
-                  width={800}
-                  height={600}
-                  priority
-                  className="w-full h-auto max-w-[300px] sm:max-w-[500px] md:max-w-[650px] lg:max-w-[900px] xl:max-w-[1100px]"
-                />
+                {/* <Image ... /> */}
               </div>
             </div>
 
@@ -86,7 +166,7 @@ const HomePage = () => {
           </div>
 
           {/* Text + CTA */}
-          <div className="mt-16 flex justify-center">
+          <div className="mt-100 flex justify-center">
             <div className="flex flex-col items-start">
               <div className="text-yellow-400 font-semibold text-2xl sm:text-3xl md:text-4xl text-left leading-snug tracking-wide">
                 <p>We believe in crafting more than just visuals.</p>
@@ -177,12 +257,12 @@ const HomePage = () => {
             {/* Left Blue Box */}
             <div className="hidden md:block absolute h-140 left-0 top-0 bottom-0 bg-blue-600 w-150 mt-250 -ml-40 z-0"></div>
 
-            {/* 3D Model Canvas */}
-            <div className="relative w-full max-w-[900px] flex justify-center z-10 px-4">
-              <div className="w-full h-[60vh] sm:h-[500px] md:h-[650px] lg:h-[750px]">
-                <RotatingModel />
-              </div>
-            </div>
+            {/* 3D Model Canvas
+<div className="relative w-full max-w-[900px] flex justify-center z-10 px-4">
+<div className="w-full h-[60vh] sm:h-[500px] md:h-[650px] lg:h-[750px]">
+<RotatingModel />
+</div>
+</div> */}
 
             {/* Right Blue Box */}
             <div className="hidden md:block absolute h-140 right-0 top-0 bottom-0 bg-blue-600 w-150 -mt-10 -mr-40 z-0"></div>
@@ -294,6 +374,8 @@ const HomePage = () => {
         </div>
       </section>
       {/* --- YELLOW EMPTY SECTION END --- */}
+
+      {/* (unchanged) */}
     </div>
   );
 };

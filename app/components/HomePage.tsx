@@ -360,7 +360,7 @@ const HomePage = () => {
         style={{ minHeight: "50vh" }}
       >
         <div className="pt-12">
-          <h1 className="lg:ml-70 md:ml-70 text-5xl text-pink-500">TESTIMONIALS</h1>
+          <h1 className="lg:ml-70 md:ml-70 sm:text-3xl md:text-5xl lg:text-5xl text-pink-500">TESTIMONIALS</h1>
         </div>
         <div className="pb-8 text-center">
           <p className="text-black text-sm sm:text-lg font-semibold">

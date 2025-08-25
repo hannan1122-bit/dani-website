@@ -175,14 +175,14 @@ const HomePage = () => {
                 <p>Let us help you build an uncommon story.</p>
               </div>
 
-              <div className="mt-8 flex items-center ">
-                <button className="bg-yellow-300 text-blue-600 px-10 py-4 shadow-lg hover:bg-yellow-300 transition-all duration-300 ease-in-out transform hover:scale-105 font-bold tracking-wide">
-                  <span className="text-xl">Let&apos;s Go</span>
-                  <span className="block text-2xl">UNCOMMON</span>
+              <div className="mt-8 flex ">
+                <button className="text-left bg-yellow-300 text-blue-600 px-10 py-4 shadow-lg hover:bg-yellow-300 transition-all duration-300 ease-in-out transform tracking-wide">
+                  <span className="text-xl">Let&apos;s GO</span>
+                  <span className="block font-bold text-bold text-2xl">uncommon</span>
                 </button>
 
                 {/* Yellow box to the right */}
-                <div className="w-30 h-15 md:mt-8 md:-ml-5 bg-yellow-300"></div>
+                <div className="w-30 h-11 mt-12 -ml-5 bg-yellow-300"></div>
               </div>
             </div>
           </div>

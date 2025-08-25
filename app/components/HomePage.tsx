@@ -359,6 +359,22 @@ const HomePage = () => {
         className="w-full bg-yellow-300 flex flex-col justify-between"
         style={{ minHeight: "50vh" }}
       >
+        <div className="pt-12">
+          <h1 className="lg:ml-70 md:ml-70 text-5xl text-pink-500">TESTIMONIALS</h1>
+        </div>
+        <div className="pb-8 text-center">
+          <p className="text-black text-sm sm:text-lg font-semibold">
+            uncommon-future © 2025 — All Rights Disrupted
+          </p>
+        </div>
+      </section>
+      {/* --- YELLOW EMPTY SECTION END --- */}
+
+       {/* --- PINK EMPTY SECTION START --- */}
+       <section
+        className="w-full bg-pink-500 flex flex-col justify-between"
+        style={{ minHeight: "50vh" }}
+      >
         <div className="pt-12 text-center">
           <p className="text-blue text-lg sm:text-xl font-medium">
             Dubai | Kochi | Portugal | Sweden
@@ -373,7 +389,7 @@ const HomePage = () => {
           </p>
         </div>
       </section>
-      {/* --- YELLOW EMPTY SECTION END --- */}
+      {/* --- PINK EMPTY SECTION END --- */}
 
       {/* (unchanged) */}
     </div>

@@ -5,6 +5,8 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import localFont from "next/font/local";
 import { motion, easeInOut } from "framer-motion"; // ✅ import easing properly
+import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
+
 
 // ✅ Custom Fonts
 const takiTaki = localFont({
@@ -81,89 +83,90 @@ const HomePage = () => {
             <p>WE MAKE THEM</p>
           </div>
 
-          {/* Flex row: UNCOMMON + dog on left, side image on right */}
-          <div className="mt-15 flex flex-col lg:flex-row items-center justify-between gap-12">
-            {/* LEFT: Heading + dog with yellow bg boxes */}
-            <div className="relative w-full lg:w-2/3 flex flex-col items-center pl-4 sm:px-8 md:px-0 lg:-mt-110 sm:-mt-20 md:-mt-30">
-              {/* Yellow background boxes */}
-              <div className="absolute -z-10 top-10 left-0 right-0 flex justify-center">
-                <div className="hidden md:block w-24 h-34 md:w-50 md:h-210 -mt-40 md:-mt-60 bg-yellow-300"></div>
+{/* Flex row: UNCOMMON + dog on left, side image on right */}
+<div className="relative  flex flex-col lg:flex-row  gap-12">
+  {/* ✅ Yellow background boxes now cover full row */}
+  <div className="absolute inset-0 flex -z-10">
+    <div className="hidden md:block w-24 h-34 md:w-50 md:h-210 -mt-40 md:-mt-60 bg-yellow-300"></div>
 
-                {/* ✅ Box 2  */}
-                <motion.div
-                  className="hidden md:block w-16 h-16 md:w-68 md:h-130 md:mt-20 bg-yellow-300"
-                  variants={pulseFromBottom}
-                  initial="initial"
-                  animate="animate"
-                  style={{ originY: 1 }}
-                />
+    {/* Box 2 */}
+    <motion.div
+      className="hidden md:block w-16 h-16 md:w-68 md:h-130 md:mt-20 bg-yellow-300"
+      variants={pulseFromBottom}
+      initial="initial"
+      animate="animate"
+      style={{ originY: 1 }}
+    />
 
-                <div className="hidden md:block w-24 h-34 md:w-80 md:h-210 -mt-15 md:-mt-60 bg-yellow-300"></div>
+    <div className="hidden md:block w-24 h-34 md:w-80 md:h-210 -mt-15 md:-mt-60 bg-yellow-300"></div>
 
-                {/* ✅ Box 4  */}
-                <motion.div
-                  className="hidden md:block w-20 h-20 md:w-30 md:h-130 md:-mt-60 bg-yellow-300"
-                  variants={pulseFromTop}
-                  initial="initial"
-                  animate="animate"
-                  style={{ originY: 0 }}
-                />
+    {/* Box 4 */}
+    <motion.div
+      className="hidden md:block w-20 h-20 md:w-30 md:h-130 md:-mt-60 bg-yellow-300"
+      variants={pulseFromTop}
+      initial="initial"
+      animate="animate"
+      style={{ originY: 0 }}
+    />
 
-                {/* ✅ Box 5  */}
-                <motion.div
-                  className="hidden md:block w-20 h-20 md:w-30 md:h-90 md:-mt-20 bg-yellow-300"
-                  variants={pulseFromTop2}
-                  initial="initial"
-                  animate="animate"
-                  style={{ originY: 0 }}
-                />
+    {/* Box 5 */}
+    <motion.div
+      className="hidden md:block w-20 h-20 md:w-30 md:h-90 md:-mt-20 bg-yellow-300"
+      variants={pulseFromTop2}
+      initial="initial"
+      animate="animate"
+      style={{ originY: 0 }}
+    />
 
-                <div className="hidden md:block w-20 h-20 md:w-30 md:h-170 md:-mt-20 bg-yellow-300"></div>
-              </div>
+    <div className="hidden md:block w-20 h-20 md:w-30 md:h-170 md:-mt-20 bg-yellow-300"></div>
 
-              {/* Title with entrance + swing */}
-              <h1
-                className={`${takiTaki.className} lg:ml-5 md:ml-30 relative z-10 text-black text-6xl sm:text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] 2xl:text-[15rem] font-extrabold leading-tight md:leading-none break-words text-center flex justify-center`}
-              >
-                {text.map((char, i) => (
-                  <motion.span
-                    key={i}
-                    initial={{
-                      x: i < text.length / 2 ? "-100%" : "100%",
-                      opacity: 0,
-                    }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{
-                      duration: 1,
-                      ease: easeInOut,
-                      delay: i * 0.05,
-                    }}
-                    className="inline-block"
-                    variants={shakeAnimation(i * 0.3, 5 + (i % 3) * 2)}
-                    whileInView="animate"
-                  >
-                    {char}
-                  </motion.span>
-                ))}
-              </h1>
+    <div className="hidden md:block w-20 h-20 md:w-30 md:h-155 md:-mt-5 bg-yellow-300"></div>
 
-              {/* Dog image */}
-              <div className="w-full flex justify-center lg:-mt-24 sm:-mt-8 relative z-20">
-                {/* <Image ... /> */}
-              </div>
-            </div>
+    <div className="hidden md:block w-50 h-20 md:w-70 md:h-25 md:mt-125 bg-yellow-300"></div>
 
-            {/* RIGHT: Extra image */}
-            <div className="w-full lg:w-1/3 flex justify-center lg:justify-end relative z-20">
-              <Image
-                src="/PICTURES/blue section first pic.png"
-                alt="Side artwork"
-                width={500}
-                height={600}
-                className="w-full h-auto max-w-[400px] lg:max-w-[500px] object-contain rounded-lg"
-              />
-            </div>
-          </div>
+    <div className="hidden md:block w-50 h-20 md:w-70 md:h-10 md:mt-140 bg-yellow-300"></div>
+  </div>
+
+  {/* LEFT: Title */}
+  <div className="relative w-full lg:w-2/3 flex flex-col items-center pl-4 sm:px-8 md:px-0">
+    <h1
+      className={`${takiTaki.className} lg:ml-5 md:ml-30 relative z-10 text-black text-6xl sm:text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] 2xl:text-[15rem] font-extrabold leading-tight md:leading-none break-words text-center flex justify-center`}
+    >
+      {text.map((char, i) => (
+        <motion.span
+          key={i}
+          initial={{
+            x: i < text.length / 2 ? "-100%" : "100%",
+            opacity: 0,
+          }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{
+            duration: 1,
+            ease: easeInOut,
+            delay: i * 0.05,
+          }}
+          className="inline-block"
+          variants={shakeAnimation(i * 0.3, 5 + (i % 3) * 2)}
+          whileInView="animate"
+        >
+          {char}
+        </motion.span>
+      ))}
+    </h1>
+  </div>
+
+  {/* RIGHT: Extra image (now overlaps boxes) */}
+  <div className="w-full lg:w-1/3 flex justify-center md:-ml-60 lg:-ml-60 mt-20 lg:justify-end relative z-20">
+    <Image
+      src="/PICTURES/blue section first pic.png"
+      alt="Side artwork"
+      width={500}
+      height={600}
+      className="w-full h-auto max-w-[400px] lg:max-w-[500px] object-contain rounded-lg"
+    />
+  </div>
+</div>
+
 
           {/* Text + CTA */}
           <div className="mt-100 flex justify-center">
@@ -252,39 +255,47 @@ const HomePage = () => {
             <span className="bg-red-600 px-3 py-2">MORE</span>
           </button>
 
-          {/* ✅ Model with Left/Right Blue Boxes */}
+          {/* ✅ Removed Blue Boxes / Model Section */}
           <div className="mt-24 flex justify-center relative">
-            {/* Left Blue Box */}
-            <div className="hidden md:block absolute h-140 left-0 top-0 bottom-0 bg-blue-600 w-150 mt-250 -ml-40 z-0"></div>
-
-            {/* 3D Model Canvas
-<div className="relative w-full max-w-[900px] flex justify-center z-10 px-4">
-<div className="w-full h-[60vh] sm:h-[500px] md:h-[650px] lg:h-[750px]">
-<RotatingModel />
-</div>
-</div> */}
-
-            {/* Right Blue Box */}
-            <div className="hidden md:block absolute h-140 right-0 top-0 bottom-0 bg-blue-600 w-150 -mt-10 -mr-40 z-0"></div>
+            {/* (Removed the left and right blue boxes + model placeholder) */}
           </div>
 
           {/* Optional Add-ons Section */}
-          <div className="mt-32 flex flex-col items-center text-center">
-            <h2 className="text-blue-600 text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight font-serif">
-              OPTIONAL <br /> ADD-ONS
-            </h2>
-            <p className="mt-6 text-xl sm:text-2xl md:text-3xl text-blue-600 max-w-3xl leading-relaxed tracking-wide">
-              Enhance your website with premium features and extra design
-              layers.
-              <br /> Get tailored solutions that go beyond the basics.
-            </p>
-            <button className="mt-10 bg-blue-600 text-yellow-300 text-xl sm:text-2xl font-bold px-12 py-5 rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-300 ease-in-out transform hover:scale-105">
-              LEARN MORE
-            </button>
+          <div className="mt-32 flex flex-col md:flex-row items-center md:items-start text-center md:text-left relative">
+            {/* White box on left side */}
+            <div className="h-100 md:w-1/3 bg-white shadow-md left-0">
+            </div>
+
+            {/* Text content */}
+            <div className="flex-1 px-20 mt-8 md:mt-0">
+              <h2 className="text-blue-600 text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight font-serif">
+                OPTIONAL <br /> ADD-ONS
+              </h2>
+              <p className="mt-6 text-xl sm:text-2xl md:text-3xl text-blue-600 max-w-3xl leading-relaxed tracking-wide">
+                Enhance your website with premium features and extra design layers.
+                <br /> Get tailored solutions that go beyond the basics.
+              </p>
+              <button className="relative flex mt-10 items-end justify-center text-xl sm:text-2xl font-bold px-12 pt-5 mb-0  text-yellow-400 overflow-hidden">
+                {/* Left half: full height */}
+                <div className="absolute left-0 top-0 h-20 w-42 bg-blue-600"></div>
+
+                {/* Right half: half height */}
+                <div className="absolute right-0 bottom-0 h-9 w-1/2 bg-blue-600"></div>
+
+                {/* Button text (stays at bottom) */}
+                <span className="relative bottom-1 z-10">LEARN MORE</span>
+              </button>
+
+
+
+
+            </div>
           </div>
+
         </div>
       </section>
       {/* --- YELLOW SECTION END --- */}
+
 
       {/* --- PINK SECTION START --- */}
       <section className="w-full bg-pink-500 text-yellow-300">
@@ -299,8 +310,15 @@ const HomePage = () => {
               We collaborate with brands, startups, and innovators <br /> to
               craft experiences that stand out and inspire action.
             </p>
-            <button className="mt-10 bg-blue-600 text-yellow-300 text-lg sm:text-2xl font-bold px-8 sm:px-12 py-4 sm:py-5 rounded-xl shadow-lg hover:bg-blue-700 transition-all duration-300 ease-in-out transform hover:scale-105">
-              KNOW MORE
+            <button className="relative flex mt-10 items-end justify-center text-xl sm:text-2xl font-bold px-12 pt-5 mb-0  text-yellow-400 overflow-hidden">
+              {/* Left half: full height */}
+              <div className="absolute left-0 top-0 h-20 w-42 bg-blue-600"></div>
+
+              {/* Right half: half height */}
+              <div className="absolute right-0 bottom-0 h-9 w-1/2 bg-blue-600"></div>
+
+              {/* Button text (stays at bottom) */}
+              <span className="relative bottom-1 z-10">KNOW MORE</span>
             </button>
           </div>
 
@@ -318,14 +336,18 @@ const HomePage = () => {
 
         {/* Bottom Split Section */}
         <div className="mt-32 flex flex-col md:flex-row items-center justify-between px-6 sm:px-12 md:px-20 lg:px-32 gap-12">
-          {/* Left Image */}
-          <div className="w-full md:w-1/2 flex justify-center">
+          {/* Left Image with Yellow Box Behind */}
+          <div className="w-full md:w-1/2 flex justify-center relative">
+            {/* Yellow box behind the image */}
+            <div className="absolute mt-38 w-[65%] h-[60%] bg-yellow-300 z-0"></div>
+
+            {/* Foreground Image */}
             <Image
               src="/PICTURES/pink section pic2.png"
               alt="Uncommon Creative"
               width={600}
               height={600}
-              className="rounded-lg object-contain"
+              className="rounded-lg object-contain relative z-10"
             />
           </div>
 
@@ -335,15 +357,16 @@ const HomePage = () => {
               READY <br /> TO <br /> GO UN <br /> COMMON?
             </h2>
             <p className="mt-8 text-lg sm:text-2xl md:text-3xl font-medium max-w-2xl leading-relaxed">
-              Let&apos;s bring your boldest ideas to life and create <br />{" "}
-              digital experiences that truly set your brand apart. <br />{" "}
-              Together, we&apos;ll redefine what&apos;s possible.
+              Let&apos;s bring your boldest ideas to life and create <br /> digital
+              experiences that truly set your brand apart. <br /> Together,
+              we&apos;ll redefine what&apos;s possible.
             </p>
             <div className="mt-10 bg-yellow-300 text-blue-600 text-lg sm:text-2xl md:text-3xl font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-lg shadow-lg">
               hello@uncommon.future.com
             </div>
           </div>
         </div>
+
 
         {/* Footer */}
         <div className="mt-32 md:mt-48 pb-16 flex justify-center">
@@ -359,34 +382,53 @@ const HomePage = () => {
         className="w-full bg-yellow-300 flex flex-col justify-between"
         style={{ minHeight: "50vh" }}
       >
+        {/* Heading */}
         <div className="pt-12">
-          <h1 className="lg:ml-70 md:ml-70 sm:text-3xl md:text-5xl lg:text-5xl text-pink-500">TESTIMONIALS</h1>
+          <h1 className="ml-8 lg:ml-48 text-3xl md:text-5xl lg:text-5xl text-pink-500 font-bold">
+            TESTIMONIALS
+          </h1>
         </div>
-        <div className="pb-8 text-center">
-          <p className="text-black text-sm sm:text-lg font-semibold">
-            uncommon-future © 2025 — All Rights Disrupted
-          </p>
+
+        {/* Sliding window */}
+        <div className="w-full overflow-x-scroll mt-18 scrollbar-hide py-8">
+          <div className="flex gap-6 w-max">
+            {[1, 2, 3, 4, 5].map((item) => (
+              <div
+                key={item}
+                className="min-w-[33%] ml-10 h-100 bg-white rounded-2xl shadow-lg p-6 text-gray-700"
+              >
+                <p className="text-lg font-semibold">
+                  Testimonial text {item} goes here…
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
+
+
       </section>
       {/* --- YELLOW EMPTY SECTION END --- */}
 
-       {/* --- PINK EMPTY SECTION START --- */}
-       <section
+
+      {/* --- PINK EMPTY SECTION START --- */}
+      <section
         className="w-full bg-pink-500 flex flex-col justify-between"
         style={{ minHeight: "50vh" }}
       >
         <div className="pt-12 text-center">
-          <p className="text-blue text-lg sm:text-xl font-medium">
+          <p className="text-blue text-lg sm:text-xl text-yellow-400 font-medium">
             Dubai | Kochi | Portugal | Sweden
           </p>
-          <p className="text-blue text-sm sm:text-lg mt-1">
+          <p className="text-yellow-400 text-sm sm:text-lg mt-1">
             25.2048° N, 55.2708° E
           </p>
         </div>
-        <div className="pb-8 text-center">
-          <p className="text-black text-sm sm:text-lg font-semibold">
-            uncommon-future © 2025 — All Rights Disrupted
-          </p>
+        {/* Social media icons */}
+        <div className="pb-8 flex justify-center gap-6">
+          <Facebook className="w-8 h-8 text-yellow-400 cursor-pointer" />
+          <Instagram className="w-8 h-8 text-yellow-400 cursor-pointer" />
+          <Linkedin className="w-8 h-8 text-yellow-400 cursor-pointer" />
+          <Youtube className="w-8 h-8 text-yellow-400 cursor-pointer" />
         </div>
       </section>
       {/* --- PINK EMPTY SECTION END --- */}
